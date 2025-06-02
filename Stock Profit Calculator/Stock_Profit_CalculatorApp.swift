@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import Firebase
 import FirebaseCore
 import AppTrackingTransparency
+import FirebaseAnalytics
 import AdSupport
+import GoogleMobileAds
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication,
@@ -40,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     private func initializeGoogleMobileAds() {
-        //GADMobileAds.sharedInstance().start(completionHandler: nil)
+        MobileAds.shared.start(completionHandler: nil)
     }
     
     private func configureFirebase() {

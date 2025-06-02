@@ -14,13 +14,27 @@
 
   ],
   "products" : [
-
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "6746397183",
+      "localizations" : [
+        {
+          "description" : "Removes our ads forever!",
+          "displayName" : "Remove Ads",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "MAIFER",
+      "referenceName" : "StocksProfitsRemoveAds",
+      "type" : "NonConsumable"
+    }
   ],
   "settings" : {
     "_applicationInternalID" : "6479931561",
     "_developerTeamID" : "5C778DVBP3",
     "_failTransactionsEnabled" : false,
-    "_lastSynchronizedDate" : 769931456.10653603,
+    "_lastSynchronizedDate" : 770013944.34438705,
     "_storeKitErrors" : [
       {
         "current" : null,
