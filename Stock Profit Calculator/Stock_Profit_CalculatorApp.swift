@@ -6,12 +6,10 @@
 //
 
 import SwiftUI
-import Firebase
-import FirebaseCore
 import AppTrackingTransparency
-import FirebaseAnalytics
-import AdSupport
 import GoogleMobileAds
+import AdSupport
+import FirebaseCore
 
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     func application(_ application: UIApplication,

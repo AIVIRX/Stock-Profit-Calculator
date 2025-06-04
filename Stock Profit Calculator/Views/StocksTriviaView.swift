@@ -1250,7 +1250,7 @@ struct TriviaLandingView: View {
     
     var body: some View {
         ScrollView {
-            VStack(spacing: 32) {
+            VStack(spacing: 16) {
                 VStack(spacing: 8) {
                     Text("Test your knowledge and climb the leaderboard! Choose a chapter to begin.")
                         .font(.title3)

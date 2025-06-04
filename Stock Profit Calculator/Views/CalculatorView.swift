@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import FirebaseAnalytics
 
 struct StockEntry: Identifiable {
     let id = UUID()
@@ -203,6 +204,9 @@ struct CalculatorView: View {
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 selectedCurrencyState = selectedCurrency
+                Analytics.logEvent("test_event", parameters: [
+                    "screen": "ContentView"
+                ])
             }
             .onChange(of: selectedCurrencyState) { newValue in
                 selectedCurrencyRaw = newValue.rawValue
