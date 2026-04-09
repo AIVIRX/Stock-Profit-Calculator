@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-// MARK: - Models
 struct TriviaChapter: Identifiable, Hashable {
     let id = UUID()
     let title: String
@@ -581,17 +580,6 @@ let sampleChapters: [TriviaChapter] = [
                 correctIndex: 0,
                 explanation: "The 1990s stock market boom is often called the Dot-com Boom."
             ),
-            TriviaQuestion(
-                question: "Which country experienced the 'Lost Decade' in its stock market during the 1990s?",
-                answers: [
-                    TriviaAnswer(text: "Japan"),
-                    TriviaAnswer(text: "USA"),
-                    TriviaAnswer(text: "Germany"),
-                    TriviaAnswer(text: "Brazil")
-                ],
-                correctIndex: 0,
-                explanation: "Japan experienced the 'Lost Decade' after its asset price bubble burst in the early 1990s."
-            ),
         ]
     ),
     // Terminology
@@ -720,17 +708,6 @@ let sampleChapters: [TriviaChapter] = [
                 ],
                 correctIndex: 0,
                 explanation: "A public company is one whose shares are traded on a stock exchange."
-            ),
-            TriviaQuestion(
-                question: "What is an index fund?",
-                answers: [
-                    TriviaAnswer(text: "A fund that tracks a specific market index"),
-                    TriviaAnswer(text: "A fund that invests only in bonds"),
-                    TriviaAnswer(text: "A fund managed by a single person"),
-                    TriviaAnswer(text: "A fund that pays no dividends")
-                ],
-                correctIndex: 0,
-                explanation: "An index fund is a fund that tracks a specific market index."
             ),
         ]
     ),
@@ -935,6 +912,39 @@ let sampleChapters: [TriviaChapter] = [
                 correctIndex: 0,
                 explanation: "The Nikkei 225 tracks 225 leading companies on the Tokyo Stock Exchange."
             ),
+            TriviaQuestion(
+                question: "What is the DAX index?",
+                answers: [
+                    TriviaAnswer(text: "German stock market index"),
+                    TriviaAnswer(text: "French stock market index"),
+                    TriviaAnswer(text: "Italian stock market index"),
+                    TriviaAnswer(text: "Spanish stock market index")
+                ],
+                correctIndex: 0,
+                explanation: "The DAX is the main German stock market index."
+            ),
+            TriviaQuestion(
+                question: "What is the CAC 40?",
+                answers: [
+                    TriviaAnswer(text: "French stock market index"),
+                    TriviaAnswer(text: "German stock market index"),
+                    TriviaAnswer(text: "Italian stock market index"),
+                    TriviaAnswer(text: "Spanish stock market index")
+                ],
+                correctIndex: 0,
+                explanation: "The CAC 40 is the main French stock market index."
+            ),
+            TriviaQuestion(
+                question: "What is the Hang Seng Index?",
+                answers: [
+                    TriviaAnswer(text: "Hong Kong stock market index"),
+                    TriviaAnswer(text: "Chinese stock market index"),
+                    TriviaAnswer(text: "Japanese stock market index"),
+                    TriviaAnswer(text: "Korean stock market index")
+                ],
+                correctIndex: 0,
+                explanation: "The Hang Seng Index is the main Hong Kong stock market index."
+            ),
         ]
     ),
     // Famous Investors
@@ -1031,127 +1041,284 @@ let sampleChapters: [TriviaChapter] = [
                 correctIndex: 0,
                 explanation: "Jeff Bezos founded Amazon in 1994."
             ),
+            TriviaQuestion(
+                question: "Who is known as the 'King of Bankruptcy'?",
+                answers: [
+                    TriviaAnswer(text: "Carl Icahn"),
+                    TriviaAnswer(text: "Warren Buffett"),
+                    TriviaAnswer(text: "George Soros"),
+                    TriviaAnswer(text: "Ray Dalio")
+                ],
+                correctIndex: 0,
+                explanation: "Carl Icahn is known as the 'King of Bankruptcy' for his corporate raiding activities."
+            ),
+            TriviaQuestion(
+                question: "Who is the founder of Microsoft?",
+                answers: [
+                    TriviaAnswer(text: "Bill Gates"),
+                    TriviaAnswer(text: "Steve Jobs"),
+                    TriviaAnswer(text: "Mark Zuckerberg"),
+                    TriviaAnswer(text: "Larry Page")
+                ],
+                correctIndex: 0,
+                explanation: "Bill Gates co-founded Microsoft with Paul Allen."
+            ),
         ]
     ),
-    // Miscellaneous
+    // Market Analysis
     TriviaChapter(
-        title: "Miscellaneous",
-        icon: "questionmark.circle",
-        color: .gray,
+        title: "Market Analysis",
+        icon: "chart.bar.doc.horizontal",
+        color: .indigo,
         questions: [
             TriviaQuestion(
-                question: "What is the main U.S. regulator for securities markets?",
+                question: "What is fundamental analysis?",
                 answers: [
-                    TriviaAnswer(text: "SEC"),
-                    TriviaAnswer(text: "FBI"),
-                    TriviaAnswer(text: "IRS"),
-                    TriviaAnswer(text: "CIA")
+                    TriviaAnswer(text: "Analyzing a company's financial statements and business model"),
+                    TriviaAnswer(text: "Analyzing price charts and patterns"),
+                    TriviaAnswer(text: "Analyzing market sentiment"),
+                    TriviaAnswer(text: "Analyzing trading volume")
                 ],
                 correctIndex: 0,
-                explanation: "The SEC (Securities and Exchange Commission) regulates U.S. securities markets."
+                explanation: "Fundamental analysis involves analyzing a company's financial statements, business model, and competitive position."
             ),
             TriviaQuestion(
-                question: "What is an ETF?",
+                question: "What is technical analysis?",
                 answers: [
-                    TriviaAnswer(text: "Exchange-Traded Fund"),
-                    TriviaAnswer(text: "Electronic Transfer Fee"),
-                    TriviaAnswer(text: "Equity Trading Firm"),
-                    TriviaAnswer(text: "Earnings To Fund")
+                    TriviaAnswer(text: "Analyzing company financials"),
+                    TriviaAnswer(text: "Analyzing price charts and patterns to predict future movements"),
+                    TriviaAnswer(text: "Analyzing market news"),
+                    TriviaAnswer(text: "Analyzing company management")
                 ],
-                correctIndex: 0,
-                explanation: "ETF stands for Exchange-Traded Fund."
+                correctIndex: 1,
+                explanation: "Technical analysis involves studying price charts and patterns to predict future price movements."
             ),
             TriviaQuestion(
-                question: "What is an ADR?",
+                question: "What is a moving average?",
                 answers: [
-                    TriviaAnswer(text: "American Depositary Receipt"),
-                    TriviaAnswer(text: "Annual Dividend Rate"),
-                    TriviaAnswer(text: "Asset Debt Ratio"),
-                    TriviaAnswer(text: "Average Daily Return")
+                    TriviaAnswer(text: "The average price over a specific period"),
+                    TriviaAnswer(text: "The highest price in a period"),
+                    TriviaAnswer(text: "The lowest price in a period"),
+                    TriviaAnswer(text: "The current price")
                 ],
                 correctIndex: 0,
-                explanation: "ADR stands for American Depositary Receipt, a way for U.S. investors to own foreign stocks."
+                explanation: "A moving average is the average price over a specific period, used to identify trends."
             ),
             TriviaQuestion(
-                question: "What is a REIT?",
+                question: "What is RSI?",
                 answers: [
-                    TriviaAnswer(text: "Real Estate Investment Trust"),
-                    TriviaAnswer(text: "Retail Equity Investment Trust"),
-                    TriviaAnswer(text: "Real Estate Income Tax"),
-                    TriviaAnswer(text: "Retail Earnings Investment Trust")
+                    TriviaAnswer(text: "Relative Strength Index"),
+                    TriviaAnswer(text: "Rate of Stock Increase"),
+                    TriviaAnswer(text: "Return on Stock Investment"),
+                    TriviaAnswer(text: "Risk Stock Indicator")
                 ],
                 correctIndex: 0,
-                explanation: "REIT stands for Real Estate Investment Trust."
+                explanation: "RSI stands for Relative Strength Index, a momentum oscillator that measures the speed of price changes."
             ),
             TriviaQuestion(
-                question: "What is a 401(k)?",
+                question: "What is a support level?",
                 answers: [
-                    TriviaAnswer(text: "A retirement savings plan"),
-                    TriviaAnswer(text: "A type of stock"),
-                    TriviaAnswer(text: "A government bond"),
-                    TriviaAnswer(text: "A trading platform")
+                    TriviaAnswer(text: "A price level where a stock tends to stop falling"),
+                    TriviaAnswer(text: "A price level where a stock tends to stop rising"),
+                    TriviaAnswer(text: "The highest price a stock has reached"),
+                    TriviaAnswer(text: "The lowest price a stock has reached")
                 ],
                 correctIndex: 0,
-                explanation: "A 401(k) is a retirement savings plan sponsored by an employer."
+                explanation: "A support level is a price level where a stock tends to stop falling and may bounce back."
             ),
             TriviaQuestion(
-                question: "What is an IPO lock-up period?",
+                question: "What is a resistance level?",
                 answers: [
-                    TriviaAnswer(text: "A period after an IPO when insiders can't sell shares"),
-                    TriviaAnswer(text: "A period when trading is halted"),
-                    TriviaAnswer(text: "A period when dividends are paid"),
-                    TriviaAnswer(text: "A period when only institutional investors can buy")
+                    TriviaAnswer(text: "A price level where a stock tends to stop falling"),
+                    TriviaAnswer(text: "A price level where a stock tends to stop rising"),
+                    TriviaAnswer(text: "The highest price a stock has reached"),
+                    TriviaAnswer(text: "The lowest price a stock has reached")
                 ],
-                correctIndex: 0,
-                explanation: "An IPO lock-up period is a set time after an IPO when insiders can't sell their shares."
+                correctIndex: 1,
+                explanation: "A resistance level is a price level where a stock tends to stop rising and may fall back."
             ),
             TriviaQuestion(
-                question: "What is a circuit breaker in stock trading?",
+                question: "What is market sentiment?",
                 answers: [
-                    TriviaAnswer(text: "A mechanism to temporarily halt trading during large market drops"),
-                    TriviaAnswer(text: "A device used in trading computers"),
-                    TriviaAnswer(text: "A type of trading strategy"),
-                    TriviaAnswer(text: "A government regulation on dividends")
+                    TriviaAnswer(text: "The overall attitude of investors toward a market or asset"),
+                    TriviaAnswer(text: "The number of shares traded"),
+                    TriviaAnswer(text: "The price of a stock"),
+                    TriviaAnswer(text: "The volume of trading")
                 ],
                 correctIndex: 0,
-                explanation: "A circuit breaker temporarily halts trading during large market drops to prevent panic selling."
+                explanation: "Market sentiment is the overall attitude of investors toward a market or specific asset."
             ),
             TriviaQuestion(
-                question: "What is insider trading?",
+                question: "What is a breakout?",
                 answers: [
-                    TriviaAnswer(text: "Trading based on non-public, material information"),
-                    TriviaAnswer(text: "Trading only with family members"),
-                    TriviaAnswer(text: "Trading on the NYSE"),
-                    TriviaAnswer(text: "Trading only blue-chip stocks")
+                    TriviaAnswer(text: "When a stock price moves above a resistance level or below a support level"),
+                    TriviaAnswer(text: "When a company goes bankrupt"),
+                    TriviaAnswer(text: "When a stock pays dividends"),
+                    TriviaAnswer(text: "When a company splits its stock")
                 ],
                 correctIndex: 0,
-                explanation: "Insider trading is trading based on non-public, material information."
+                explanation: "A breakout occurs when a stock price moves above a resistance level or below a support level."
             ),
             TriviaQuestion(
-                question: "What is a stock buyback?",
+                question: "What is volume analysis?",
                 answers: [
-                    TriviaAnswer(text: "When a company buys its own shares from the market"),
-                    TriviaAnswer(text: "When an investor buys back shares"),
-                    TriviaAnswer(text: "When a company issues new shares"),
-                    TriviaAnswer(text: "When a company pays dividends")
+                    TriviaAnswer(text: "Analyzing the number of shares traded to confirm price movements"),
+                    TriviaAnswer(text: "Analyzing the price of a stock"),
+                    TriviaAnswer(text: "Analyzing company earnings"),
+                    TriviaAnswer(text: "Analyzing market news")
                 ],
                 correctIndex: 0,
-                explanation: "A stock buyback is when a company buys its own shares from the market."
+                explanation: "Volume analysis involves studying the number of shares traded to confirm price movements and trends."
             ),
             TriviaQuestion(
-                question: "What is a SPAC?",
+                question: "What is a trend line?",
                 answers: [
-                    TriviaAnswer(text: "Special Purpose Acquisition Company"),
-                    TriviaAnswer(text: "Stock Price Adjustment Clause"),
-                    TriviaAnswer(text: "Shareholder Protection and Compensation"),
-                    TriviaAnswer(text: "Securities and Public Accounting Commission")
+                    TriviaAnswer(text: "A line drawn on a chart to show the direction of price movement"),
+                    TriviaAnswer(text: "A line showing the average price"),
+                    TriviaAnswer(text: "A line showing the highest price"),
+                    TriviaAnswer(text: "A line showing the lowest price")
                 ],
                 correctIndex: 0,
-                explanation: "SPAC stands for Special Purpose Acquisition Company."
+                explanation: "A trend line is a line drawn on a chart to show the direction of price movement over time."
             ),
         ]
-    )
+    ),
+    // Risk Management
+    TriviaChapter(
+        title: "Risk Management",
+        icon: "shield.checkered",
+        color: .red,
+        questions: [
+            TriviaQuestion(
+                question: "What is diversification?",
+                answers: [
+                    TriviaAnswer(text: "Spreading investments across different assets to reduce risk"),
+                    TriviaAnswer(text: "Investing all money in one stock"),
+                    TriviaAnswer(text: "Selling all stocks at once"),
+                    TriviaAnswer(text: "Buying only blue-chip stocks")
+                ],
+                correctIndex: 0,
+                explanation: "Diversification is spreading investments across different assets to reduce risk."
+            ),
+            TriviaQuestion(
+                question: "What is a stop-loss order?",
+                answers: [
+                    TriviaAnswer(text: "An order to automatically sell if a stock falls to a certain price"),
+                    TriviaAnswer(text: "An order to buy more shares"),
+                    TriviaAnswer(text: "An order to hold a stock forever"),
+                    TriviaAnswer(text: "An order to buy at market price")
+                ],
+                correctIndex: 0,
+                explanation: "A stop-loss order automatically sells a stock if it falls to a certain price to limit losses."
+            ),
+            TriviaQuestion(
+                question: "What is position sizing?",
+                answers: [
+                    TriviaAnswer(text: "Determining how much money to invest in each position"),
+                    TriviaAnswer(text: "The size of a company"),
+                    TriviaAnswer(text: "The number of employees at a company"),
+                    TriviaAnswer(text: "The market cap of a company")
+                ],
+                correctIndex: 0,
+                explanation: "Position sizing is determining how much money to invest in each position to manage risk."
+            ),
+            TriviaQuestion(
+                question: "What is risk tolerance?",
+                answers: [
+                    TriviaAnswer(text: "How much risk an investor is willing to take"),
+                    TriviaAnswer(text: "How much money an investor has"),
+                    TriviaAnswer(text: "How many stocks an investor owns"),
+                    TriviaAnswer(text: "How long an investor plans to hold stocks")
+                ],
+                correctIndex: 0,
+                explanation: "Risk tolerance is how much risk an investor is willing to take with their investments."
+            ),
+            TriviaQuestion(
+                question: "What is a hedge?",
+                answers: [
+                    TriviaAnswer(text: "An investment that reduces the risk of another investment"),
+                    TriviaAnswer(text: "A type of bond"),
+                    TriviaAnswer(text: "A dividend payment"),
+                    TriviaAnswer(text: "A trading fee")
+                ],
+                correctIndex: 0,
+                explanation: "A hedge is an investment that reduces the risk of another investment."
+            ),
+            TriviaQuestion(
+                question: "What is correlation?",
+                answers: [
+                    TriviaAnswer(text: "How two investments move in relation to each other"),
+                    TriviaAnswer(text: "The price of a stock"),
+                    TriviaAnswer(text: "The number of shares traded"),
+                    TriviaAnswer(text: "The market cap of a company")
+                ],
+                correctIndex: 0,
+                explanation: "Correlation measures how two investments move in relation to each other."
+            ),
+            TriviaQuestion(
+                question: "What is volatility?",
+                answers: [
+                    TriviaAnswer(text: "The degree of variation in a stock's price"),
+                    TriviaAnswer(text: "The number of shares traded"),
+                    TriviaAnswer(text: "The amount of dividends paid"),
+                    TriviaAnswer(text: "The market cap of a company")
+                ],
+                correctIndex: 0,
+                explanation: "Volatility is the degree of variation in a stock's price over time."
+            ),
+            TriviaQuestion(
+                question: "What is a trailing stop?",
+                answers: [
+                    TriviaAnswer(text: "A stop-loss that moves up as the stock price rises"),
+                    TriviaAnswer(text: "A stop-loss that stays at the same price"),
+                    TriviaAnswer(text: "A stop-loss that moves down as the stock price falls"),
+                    TriviaAnswer(text: "A stop-loss that cancels after a certain time")
+                ],
+                correctIndex: 0,
+                explanation: "A trailing stop is a stop-loss that moves up as the stock price rises to protect profits."
+            ),
+            TriviaQuestion(
+                question: "What is asset allocation?",
+                answers: [
+                    TriviaAnswer(text: "How you divide your investments between different asset classes"),
+                    TriviaAnswer(text: "How much money you have"),
+                    TriviaAnswer(text: "How many stocks you own"),
+                    TriviaAnswer(text: "How long you plan to invest")
+                ],
+                correctIndex: 0,
+                explanation: "Asset allocation is how you divide your investments between different asset classes like stocks, bonds, and cash."
+            ),
+            TriviaQuestion(
+                question: "What is rebalancing?",
+                answers: [
+                    TriviaAnswer(text: "Adjusting your portfolio to maintain your target asset allocation"),
+                    TriviaAnswer(text: "Selling all your stocks"),
+                    TriviaAnswer(text: "Buying more of the same stock"),
+                    TriviaAnswer(text: "Changing your investment strategy")
+                ],
+                correctIndex: 0,
+                explanation: "Rebalancing is adjusting your portfolio to maintain your target asset allocation."
+            ),
+        ]
+    ),
 ]
+
+private let maxQuestionsPerChapter = 10
+
+extension TriviaChapter {
+    func limited(to max: Int) -> TriviaChapter {
+        TriviaChapter(
+            title: title,
+            icon: icon,
+            color: color,
+            questions: Array(questions.prefix(max))
+        )
+    }
+}
+
+private let cappedChapters: [TriviaChapter] = sampleChapters.map {
+    $0.limited(to: maxQuestionsPerChapter)
+}
 
 class TriviaViewModel: ObservableObject {
     @Published var selectedChapter: TriviaChapter? = nil
@@ -1162,13 +1329,16 @@ class TriviaViewModel: ObservableObject {
     @Published var showSummary: Bool = false
     @AppStorage("triviaHighScores") private var highScoresData: Data = Data()
     @Published var highScores: [String: Int] = [:] // [chapterTitle: highScore]
+    @EnvironmentObject private var store: Store
+    @EnvironmentObject private var interstitialAdManager: InterstitialAdManager
+    @State private var hasShownInterstitialThisCompletion = false
     
     init() {
         loadHighScores()
     }
     
     func startChapter(_ chapter: TriviaChapter) {
-        selectedChapter = chapter
+        selectedChapter = chapter.limited(to: maxQuestionsPerChapter)
         currentQuestionIndex = 0
         selectedAnswerIndex = nil
         showResult = false
@@ -1185,7 +1355,7 @@ class TriviaViewModel: ObservableObject {
         }
     }
     
-    func nextQuestion() {
+    func nextQuestion(interstitialAdManager: InterstitialAdManager? = nil, store: Store? = nil) {
         guard let chapter = selectedChapter else { return }
         if currentQuestionIndex + 1 < chapter.questions.count {
             currentQuestionIndex += 1
@@ -1227,6 +1397,8 @@ class TriviaViewModel: ObservableObject {
 // MARK: - Main View
 struct StocksTriviaView: View {
     @StateObject private var viewModel = TriviaViewModel()
+    @EnvironmentObject private var interstitialAdManager: InterstitialAdManager
+    @EnvironmentObject private var store: Store
     
     var body: some View {
         NavigationStack {
@@ -1241,12 +1413,16 @@ struct StocksTriviaView: View {
             }
         }
         .background(Color(.systemBackground))
+        .onAppear {
+            // View is ready
+        }
     }
 }
 
 // MARK: - Landing Page
 struct TriviaLandingView: View {
     @ObservedObject var viewModel: TriviaViewModel
+    @EnvironmentObject private var interstitialAdManager: InterstitialAdManager
     
     var body: some View {
         ScrollView {
@@ -1257,7 +1433,7 @@ struct TriviaLandingView: View {
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)
                 }
-                ForEach(sampleChapters) { chapter in
+                ForEach(cappedChapters) { chapter in
                     Button {
                         withAnimation {
                             viewModel.startChapter(chapter)
@@ -1306,155 +1482,218 @@ struct TriviaGameView: View {
     let chapter: TriviaChapter
     @State private var localSelectedIndex: Int? = nil
     @State private var hasSubmitted: Bool = false
+    @EnvironmentObject private var interstitialAdManager: InterstitialAdManager
+    @EnvironmentObject private var store: Store
     
     var body: some View {
-        let question = chapter.questions[viewModel.currentQuestionIndex]
-        let enumeratedAnswers = Array(question.answers.enumerated())
-        VStack(spacing: 32) {
-            VStack(spacing: 8) {
-                Text(chapter.title)
-                    .font(.title2.bold())
-                    .foregroundColor(chapter.color)
-                ProgressView(value: Double(viewModel.currentQuestionIndex + 1), total: Double(chapter.questions.count))
-                    .accentColor(chapter.color)
-                Text("Question \(viewModel.currentQuestionIndex + 1) of \(chapter.questions.count)")
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
-            }
-            VStack(alignment: .leading, spacing: 20) {
-                Text(question.question)
-                    .font(.title2.bold())
-                    .foregroundColor(.primary)
-                    .multilineTextAlignment(.leading)
-                ForEach(enumeratedAnswers, id: \.offset) { idx, answer in
-                    Button {
-                        if !hasSubmitted {
-                            localSelectedIndex = idx
+        ScrollView {
+            VStack(spacing: 0) {
+                // Header with back button
+                HStack {
+                    Button(action: { viewModel.selectedChapter = nil }) {
+                        Image(systemName: "arrow.left")
+                            .foregroundColor(.blue)
+                            .padding(8)
+                            .background(Color(.systemGray5))
+                            .clipShape(Circle())
+                    }
+                    
+                    Spacer()
+                    
+                    // Progress bar
+                    ProgressView(value: Double(viewModel.currentQuestionIndex + 1), total: Double(chapter.questions.count)) {
+                        Text("\(chapter.title)")
+                            .font(.headline)
+                            .foregroundColor(.secondary)
+                        
+                        Spacer()
+                        
+                        Text("Question \(viewModel.currentQuestionIndex + 1) of \(chapter.questions.count)")
+                            .font(.subheadline)
+                            .foregroundColor(.blue)
+                    }
+                    .accentColor(.blue)
+                    .padding(.vertical, 16)
+                    .padding(.horizontal, 8)
+                    .animation(.easeInOut, value: viewModel.currentQuestionIndex)
+                }
+                .padding(.bottom, 8)
+                
+                let question = chapter.questions[viewModel.currentQuestionIndex]
+                
+                VStack(spacing: 24) {
+                    Text(question.question)
+                        .font(.title2).bold()
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 8)
+                }
+                .padding(24)
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color(.systemBackground))
+                        .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 5)
+                )
+                .padding(.horizontal, 16)
+                .padding(.bottom, 32)
+                
+                // Duolingo-style answer buttons
+                VStack(spacing: 16) {
+                    ForEach(0..<question.answers.count, id: \.self) { index in
+                        Button(action: {
+                            if !hasSubmitted {
+                                localSelectedIndex = index
+                            }
+                            let impactHeavy = UIImpactFeedbackGenerator(style: .medium)
+                            impactHeavy.impactOccurred()
+                        }) {
+                            HStack {
+                                Text(question.answers[index].text)
+                                    .font(.headline)
+                                    .foregroundColor(.primary)
+                                    .multilineTextAlignment(.leading)
+                                    .frame(maxWidth: .infinity, alignment: .leading)
+                                Spacer()
+                                if hasSubmitted && index == localSelectedIndex {
+                                    Image(systemName: localSelectedIndex == question.correctIndex ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                        .foregroundColor(localSelectedIndex == question.correctIndex ? .green : .red)
+                                        .font(.title2)
+                                }
+                            }
+                            .padding(.vertical, 20)
+                            .padding(.horizontal, 24)
+                            .frame(maxWidth: .infinity)
+                            .background(duolingoAnswerBackground(index: index, question: question))
+                            .cornerRadius(16)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(duolingoAnswerStroke(index: index, question: question), lineWidth: 3)
+                            )
+                            .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
                         }
-                    } label: {
+                        .disabled(hasSubmitted)
+                    }
+                }
+                .padding(.horizontal, 16)
+                .padding(.bottom, 16)
+                
+                if !hasSubmitted {
+                    Button(action: {
+                        guard let selectedIndex = localSelectedIndex else { return }
+                        submitAnswer(selectedIndex)
+                    }) {
+                        Text("Submit Answer")
+                            .fontWeight(.bold)
+                            .font(.title3)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(localSelectedIndex == nil ? Color(.systemGray4) : Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
+                            .shadow(color: Color.blue.opacity(0.3), radius: 6, x: 0, y: 3)
+                    }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 10)
+                    .disabled(localSelectedIndex == nil)
+                } else {
+                    // Feedback card
+                    VStack(spacing: 16) {
                         HStack {
-                            Text(answer.text)
-                                .font(.title3)
-                                .foregroundColor(.primary)
-                                .padding(.vertical, 24)
-                                .padding(.horizontal, 24)
-                                .multilineTextAlignment(.leading)
-                                .lineLimit(nil)
-                                .frame(maxWidth: .infinity, alignment: .leading)
-                            Spacer()
-                            ZStack {
-                                if hasSubmitted {
-                                    if idx == question.correctIndex {
-                                        Image(systemName: "checkmark.circle.fill")
-                                            .foregroundColor(.green)
-                                            .padding(8)
-                                    } else if idx == localSelectedIndex {
-                                        Image(systemName: "xmark.circle.fill")
-                                            .foregroundColor(.red)
-                                            .padding(8)
-                                    } else {
-                                        Color.clear.frame(width: 40, height: 40)
-                                    }
-                                } else {
-                                    Color.clear.frame(width: 40, height: 40)
-                                }
-                            }
+                            Image(systemName: localSelectedIndex == question.correctIndex ? "checkmark.circle.fill" : "xmark.circle.fill")
+                                .foregroundColor(localSelectedIndex == question.correctIndex ? .green : .red)
+                                .font(.title)
+                            Text(localSelectedIndex == question.correctIndex ? "Correct!" : "Incorrect")
+                                .font(.title2)
+                                .fontWeight(.bold)
+                                .foregroundColor(localSelectedIndex == question.correctIndex ? .green : .red)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 64)
-                        .background(
-                            ZStack {
-                                if hasSubmitted {
-                                    if idx == question.correctIndex {
-                                        RoundedRectangle(cornerRadius: 20).fill(Color.green.opacity(0.5))
-                                    } else if idx == localSelectedIndex {
-                                        RoundedRectangle(cornerRadius: 20).fill(Color.red.opacity(0.5))
-                                    } else {
-                                        RoundedRectangle(cornerRadius: 20).fill(Color(.secondarySystemBackground))
-                                    }
-                                } else {
-                                    RoundedRectangle(cornerRadius: 20).fill(Color(.secondarySystemBackground))
-                                }
-                            }
-                        )
-                        .clipShape(RoundedRectangle(cornerRadius: 20, style: .continuous))
-                        .overlay(
-                            Group {
-                                if hasSubmitted {
-                                    if idx == question.correctIndex {
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.green, lineWidth: localSelectedIndex == idx ? 3 : 0)
-                                    } else if idx == localSelectedIndex {
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.red, lineWidth: 3)
-                                    } else {
-                                        RoundedRectangle(cornerRadius: 20)
-                                            .stroke(Color.clear, lineWidth: 0)
-                                    }
-                                } else {
-                                    RoundedRectangle(cornerRadius: 20)
-                                        .stroke(localSelectedIndex == idx ? chapter.color : Color.clear, lineWidth: localSelectedIndex == idx ? 2 : 0)
-                                }
-                            }
-                        )
-                        .animation(.easeInOut, value: hasSubmitted)
+                        
+                        if let explanation = question.explanation {
+                            Text(explanation)
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                                .multilineTextAlignment(.center)
+                        }
                     }
-                    .disabled(hasSubmitted)
-                    .accessibilityLabel(answer.text + (idx == question.correctIndex ? ", correct answer" : ""))
-                }
-                if hasSubmitted, let selected = localSelectedIndex, selected != question.correctIndex, let explanation = question.explanation {
-                    Text(explanation)
-                        .font(.body)
-                        .foregroundColor(.orange)
-                        .padding(.top, 12)
-                        .accessibilityLabel("Explanation: \(explanation)")
-                }
-            }
-            Spacer()
-            if !hasSubmitted {
-                Button(action: {
-                    if let idx = localSelectedIndex {
-                        viewModel.answer(idx)
-                        hasSubmitted = true
+                    .padding(20)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(localSelectedIndex == question.correctIndex ? Color.green.opacity(0.1) : Color.red.opacity(0.1))
+                    )
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
+                    
+                    Button(action: {
+                        viewModel.nextQuestion(interstitialAdManager: interstitialAdManager, store: store)
+                        localSelectedIndex = nil
+                        hasSubmitted = false
+                        let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+                        impactHeavy.impactOccurred()
+                    }) {
+                        Text(nextButtonText())
+                            .fontWeight(.bold)
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.blue)
+                            .foregroundColor(.white)
+                            .cornerRadius(16)
                     }
-                }) {
-                    Text("Submit Answer")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(localSelectedIndex != nil ? chapter.color : Color(.systemGray4))
-                        .foregroundColor(localSelectedIndex != nil ? .white : .gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                    .padding(.horizontal, 16)
+                    .padding(.bottom, 16)
                 }
-                .buttonStyle(.plain)
-                .disabled(localSelectedIndex == nil)
-            } else {
-                Button(action: {
-                    viewModel.nextQuestion()
-                    localSelectedIndex = nil
-                    hasSubmitted = false
-                }) {
-                    Text(viewModel.currentQuestionIndex + 1 == chapter.questions.count ? "See Results" : "Next Question")
-                        .font(.headline)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color(.systemGray3))
-                        .foregroundColor(.gray)
-                        .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                }
-                .buttonStyle(.plain)
+                Spacer()
             }
+            .padding()
         }
-        .padding()
-        .background(Color(.systemBackground))
-        .navigationTitle(chapter.title)
-        .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private func duolingoAnswerBackground(index: Int, question: TriviaQuestion) -> Color {
+        if hasSubmitted {
+            if index == localSelectedIndex {
+                return localSelectedIndex == question.correctIndex ? Color.green.opacity(0.2) : Color.red.opacity(0.2)
+            } else if index == question.correctIndex {
+                return Color.green.opacity(0.2)
+            }
+        } else if index == localSelectedIndex {
+            return Color.green.opacity(0.1)
+        }
+        return Color(.systemGray6)
+    }
+    
+    private func duolingoAnswerStroke(index: Int, question: TriviaQuestion) -> Color {
+        if hasSubmitted {
+            if index == localSelectedIndex {
+                return localSelectedIndex == question.correctIndex ? .green : .red
+            } else if index == question.correctIndex {
+                return .green
+            }
+        } else if index == localSelectedIndex {
+            return .green
+        }
+        return .clear
+    }
+    
+    private func submitAnswer(_ selectedIndex: Int) {
+        viewModel.answer(selectedIndex)
+        hasSubmitted = true
+        
+        let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
+        impactHeavy.impactOccurred()
+    }
+    
+    private func nextButtonText() -> String {
+        if viewModel.currentQuestionIndex + 1 == chapter.questions.count {
+            return "See Results"
+        } else {
+            return "Next Question"
+        }
     }
 }
 
 struct TriviaSummaryView: View {
     @ObservedObject var viewModel: TriviaViewModel
     let chapter: TriviaChapter
-    
+    @EnvironmentObject private var interstitialAdManager: InterstitialAdManager
+    @EnvironmentObject private var store: Store
     var body: some View {
         VStack(spacing: 32) {
             VStack(spacing: 8) {
@@ -1507,5 +1746,13 @@ struct TriviaSummaryView: View {
         .background(Color(.systemBackground))
         .navigationTitle(chapter.title)
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear {
+            if !store.completedPurchases.contains("MAIFER") {
+                if interstitialAdManager.isAdReady {
+                    let rootVC = UIApplication.shared.getRootViewController()
+                    interstitialAdManager.showInterstitial(from: rootVC)
+                }
+            }
+        }
     }
 }

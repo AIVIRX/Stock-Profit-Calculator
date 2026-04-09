@@ -1,5 +1,5 @@
 {
-  "originHash" : "f034ca55a4dc698c513d24540de6175467a1cc73862a2c2f7e98486bab728fce",
+  "originHash" : "323014f1119f1e1609fe2d84940b05fba98bb2e47c3f6150d54da55d43380884",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -110,12 +110,12 @@
       }
     },
     {
-      "identity" : "statefultabview",
+      "identity" : "purchases-ios-spm",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/NicholasBellucci/StatefulTabView.git",
+      "location" : "https://github.com/RevenueCat/purchases-ios-spm",
       "state" : {
-        "revision" : "9faa432592874b6e20065f2aa63f20f72c5df71c",
-        "version" : "0.1.10"
+        "revision" : "66f81c19e29170cecc1f155c62cd586cf53b8400",
+        "version" : "5.67.1"
       }
     },
     {

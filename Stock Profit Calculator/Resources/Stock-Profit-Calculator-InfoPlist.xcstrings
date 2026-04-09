@@ -14,19 +14,6 @@
       },
       "shouldTranslate" : false
     },
-    "CFBundleGetInfoString" : {
-      "comment" : "Get Info string",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : ""
-          }
-        }
-      },
-      "shouldTranslate" : false
-    },
     "CFBundleName" : {
       "comment" : "Bundle name",
       "extractionState" : "extracted_with_value",

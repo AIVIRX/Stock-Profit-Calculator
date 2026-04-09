@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-#if os(iOS)
 import GoogleMobileAds
 
 struct AdView: UIViewRepresentable{
@@ -59,6 +58,20 @@ struct AdView: UIViewRepresentable{
     }
 }
 
+// Conditional banner ad that only shows if user hasn't purchased no-ads IAP
+struct ConditionalAdView: View {
+    let adUnitID: String
+    @EnvironmentObject private var store: Store
+    
+    var body: some View {
+        if !store.completedPurchases.contains("MAIFER") {
+            AdView(adUnitID: adUnitID)
+                .frame(width: 320, height: 50)
+                .padding(3)
+        }
+    }
+}
+
 extension UIApplication{
     func getRootViewController()->UIViewController{
         guard let screen = self.connectedScenes.first as? UIWindowScene else{
@@ -71,4 +84,3 @@ extension UIApplication{
         return root
     }
 }
-#endif

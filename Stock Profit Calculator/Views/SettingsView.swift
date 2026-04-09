@@ -7,10 +7,9 @@
 
 import SwiftUI
 import StoreKit
-#if os(iOS)
 import MessageUI
-#endif
-#if os(iOS)
+import RevenueCatUI
+
 struct MailView: UIViewControllerRepresentable {
     @Environment(\.presentationMode) var presentationMode
     @Binding var result: Result<MFMailComposeResult, Error>?
@@ -50,7 +49,6 @@ struct MailView: UIViewControllerRepresentable {
 
     func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: UIViewControllerRepresentableContext<MailView>) {}
 }
-#endif
 
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
@@ -58,31 +56,41 @@ struct SettingsView: View {
     @EnvironmentObject private var store: Store
     @State private var errorMessage: String = ""
     @State private var showErrorAlert: Bool = false
-#if os(iOS)
     @State private var result: Result<MFMailComposeResult, Error>? = nil
-#endif
     @State private var isShowingMailView = false
+    @State private var isShowingPaywall = false
     @Environment(\.dismiss) var dismiss
+
+    private var hasNoAds: Bool {
+        store.completedPurchases.contains("MAIFER")
+    }
+
     var body: some View {
         NavigationStack {
             VStack{
-                NavigationLink(destination: StoreView()) {
-                    HStack {
+                Button {
+                    isShowingPaywall = true
+                } label: {
                         VStack(alignment: .leading) {
-                            Text("Shop")
-                                .font(.headline)
-                                .foregroundColor(.white)
-                            Text("Unlock Premium Features")
+                            HStack{
+                                Image(systemName: "crown.fill")
+                                    .foregroundColor(.orange)
+                                Text("Shop")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                            }
+                            Text(hasNoAds ? "Premium unlocked" : "Unlock Premium Features")
                                 .font(.subheadline)
                                 .foregroundColor(.white)
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
-                    }
-                    .background(RoundedRectangle(cornerRadius: 10).fill(Color.indigo.gradient))
-                    .padding(.horizontal)
-                    .padding(.top)
                 }
+                .buttonStyle(.plain)
+                .contentShape(Rectangle())
+                .background(RoundedRectangle(cornerRadius: 12).fill(Color.indigo.gradient))
+                .padding(.horizontal)
+                .padding(.top)
                 
                 Form {
                     Section(header: Text("Support Us")) {
@@ -112,13 +120,14 @@ struct SettingsView: View {
                             }
                         }
                         
-                        Link(destination: URL(string: "https://apps.apple.com/us/app/tasknow-simple-to-do-list/id1639588217")!) {
+                        Link(destination: URL(string: "https://apps.apple.com/us/app/minihabits-habit-tracker/id6749192623")!) {
                             HStack {
-                                Image("TaskNow")
+                                Image("minihabits")
                                     .resizable()
                                     .frame(width: 30, height: 30)
                                     .cornerRadius(5)
-                                Text("TaskNow - Simple To Do List")
+                                
+                                Text("MiniHabits - Habit Tracker")
                             }
                         }
                     }
@@ -127,21 +136,20 @@ struct SettingsView: View {
                         Link(destination: URL(string: "https://www.aivirx.com/stock-profit-calculator/privacy-policy")!) {
                             Text("Privacy Policy")
                         }
+                        Link(destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) {
+                            Text("Terms of Service")
+                        }
                         Button(action: {
                             isShowingMailView.toggle()
                         }) {
                             Text("Contact Us")
                         }
-#if os(iOS)
                         .disabled(!MFMailComposeViewController.canSendMail())
-#endif
                     }
                 }
                 .accentColor(colorScheme == .dark ? .white : .black)
-#if os(iOS)
                 .navigationBarTitle("Settings")
                 .navigationBarTitleDisplayMode(.inline)
-#endif
                 .alert(isPresented: $showErrorAlert) {
                     Alert(
                         title: Text("Error"),
@@ -149,11 +157,12 @@ struct SettingsView: View {
                         dismissButton: .default(Text("OK"))
                     )
                 }
-#if os(iOS)
                 .sheet(isPresented: $isShowingMailView) {
                     MailView(result: $result)
                 }
-#endif
+                .sheet(isPresented: $isShowingPaywall) {
+                    PaywallView()
+                }
             }
         }
     }

@@ -6,27 +6,29 @@
 //
 
 import SwiftUI
-import StatefulTabView
 
 struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var store: Store
-    var body: some View {
-        if store.completedPurchases.isEmpty {
-            AdView(adUnitID: AdUnitID.finalAd)
-                .frame(width: 320, height: 50)
-                .padding(3)
+    @State private var selectedTab: Tabs = .home
+
+    enum Tabs: Hashable {
+            case home
+            case trivia
+            case settings
         }
-        StatefulTabView {
-            Tab(title: "Home",systemImageName: "house.fill") {
+    
+    var body: some View {
+        TabView(selection: $selectedTab) {
+            Tab("Home", systemImage: "house.fill", value: .home) {
                 CalculatorView()
             }
             
-            Tab(title: "Trivia", systemImageName: "trophy.fill") {
+            Tab("Trivia", systemImage: "trophy.fill", value: .trivia) {
                 StocksTriviaView()
             }
             
-            Tab(title: "Settings", systemImageName: "gearshape.fill") {
+            Tab("Settings", systemImage: "gearshape.fill", value: .settings) {
                 SettingsView()
             }
         }

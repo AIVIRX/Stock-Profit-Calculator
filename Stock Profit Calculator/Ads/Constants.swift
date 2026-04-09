@@ -10,7 +10,10 @@ import Foundation
 struct AdUnitID {
     static let testAds = "ca-app-pub-3940256099942544/2934735716"
     static let mainPageAds = "ca-app-pub-2043555402127024/9992440432"
-    static let finalAd = mainPageAds
-}
-
     
+    static let testInterstitial = "ca-app-pub-3940256099942544/4411468910"
+    static let interstitialAds = "ca-app-pub-2043555402127024/8418725039"
+    
+    static let finalinterstitial = testInterstitial
+    static let finalAd = mainPageAds
+} 

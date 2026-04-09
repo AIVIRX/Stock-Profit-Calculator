@@ -7,37 +7,36 @@
 
 import SwiftUI
 import FirebaseAnalytics
-
-struct StockEntry: Identifiable {
-    let id = UUID()
-    var buyPrice: String
-    var shares: String
-}
+import StoreKit
 
 struct CalculatorView: View {
     @EnvironmentObject private var store: Store
-    @State private var entries: [StockEntry] = []
+    @EnvironmentObject private var interstitialAdManager: InterstitialAdManager
+    @Environment(\.requestReview) private var requestReview
+    @State private var sessionStart = Date()
+    @State private var hasPromptedForReview = false
+    @State private var hasShownInterstitialThisSession = false
+    @State private var shares: String = ""
+    @State private var buyPrice: String = ""
     @State private var sellingPrice: String = ""
     @AppStorage("selectedCurrency") private var selectedCurrencyRaw: String = Currency.usd.rawValue
     @State private var selectedCurrencyState: Currency = .usd
-    @FocusState private var focusedField: UUID?
     @State private var commissionFee: String = ""
-    @State private var deletingIDs: Set<UUID> = []
     
     private var selectedCurrency: Currency {
         Currency(rawValue: selectedCurrencyRaw) ?? .usd
     }
     private var sellingPriceValue: Double {
-        Double(sellingPrice) ?? 0
+        parseDouble(sellingPrice)
     }
     private var commissionFeeValue: Double {
-        Double(commissionFee) ?? 0
+        parseDouble(commissionFee)
     }
     private var totalShares: Double {
-        entries.reduce(0) { $0 + (Double($1.shares) ?? 0) }
+        parseDouble(shares)
     }
     private var totalCost: Double {
-        entries.reduce(0) { $0 + ((Double($1.buyPrice) ?? 0) * (Double($1.shares) ?? 0)) } + commissionFeeValue
+        parseDouble(buyPrice) * totalShares + commissionFeeValue
     }
     private var totalProceeds: Double {
         sellingPriceValue * totalShares
@@ -49,169 +48,113 @@ struct CalculatorView: View {
         guard totalShares > 0 else { return 0 }
         return (totalCost) / totalShares
     }
-    private func deleteEntry(withId id: UUID) {
-        // Prevent double delete
-        guard !deletingIDs.contains(id) else { return }
-        deletingIDs.insert(id)
-        if entries.firstIndex(where: { $0.id == id }) != nil {
-            if entries.count == 1 || focusedField == id {
-                focusedField = nil
-            }
-            // Remove after animation completes
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.35) {
-                if let index = entries.firstIndex(where: { $0.id == id }) {
-                    entries.remove(at: index)
-                }
-                deletingIDs.remove(id)
-            }
-        } else {
-            print("[Delete Error] Tried to delete entry with id \(id), but it was not found in entries.")
-        }
+
+    private func parseDouble(_ input: String) -> Double {
+        let formatter = NumberFormatter()
+        formatter.locale = Locale.current
+        formatter.numberStyle = .decimal
+        return formatter.number(from: input)?.doubleValue ?? 0
     }
-    
+
+    private var summaryAnimation: Animation {
+        .easeInOut(duration: 0.25)
+    }
     var body: some View {
         NavigationStack {
-            VStack(spacing: 12) {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 12) {
-                        Text("Add your stock purchases below. Enter a selling price and commission fee to see your total potential profit.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
+            ScrollView {
+                VStack(alignment: .leading, spacing: 12) {
+                    VStack(spacing: 6) {
+                        Text("Total Profit")
+                            .font(.headline)
+                        Text("\(selectedCurrency.symbol)\(totalProfit, specifier: "%.2f")")
+                            .font(.system(size: 40, weight: .bold, design: .rounded))
+                            .foregroundStyle(totalProfit >= 0 ? .green : .red)
+                            .lineLimit(2)
+                            .minimumScaleFactor(0.82)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .contentTransition(.numericText())
+                            .animation(summaryAnimation, value: totalProfit)
                     }
+                    .frame(maxWidth: .infinity)
+                    .padding(8)
+                    .background(.ultraThinMaterial)
+                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
                     VStack(spacing: 12) {
-                        if !entries.isEmpty {
-                            ForEach(Array(entries.enumerated()), id: \.element.id) { (index, entry) in
-                                VStack(spacing: 12) {
-                                    HStack {
-                                        Text("Shares")
-                                        Spacer()
-                                        TextField("0", text: $entries[index].shares)
-                                            .keyboardType(.numberPad)
-                                            .multilineTextAlignment(.trailing)
-                                            .frame(width: 100)
-                                            .textFieldStyle(.roundedBorder)
-                                            .focused($focusedField, equals: entry.id)
-                                    }
-                                    HStack {
-                                        Text("Buy Price")
-                                        Spacer()
-                                        HStack(spacing: 4) {
-                                            Text(selectedCurrency.symbol)
-                                                .foregroundColor(.secondary)
-                                            TextField("0.00", text: $entries[index].buyPrice)
-                                                .keyboardType(.decimalPad)
-                                                .multilineTextAlignment(.trailing)
-                                                .frame(width: 90)
-                                                .textFieldStyle(.roundedBorder)
-                                        }
-                                    }
-                                    HStack {
-                                        Spacer()
-                                        Button(role: .destructive) {
-                                            withAnimation {
-                                                deleteEntry(withId: entry.id)
-                                            }
-                                        } label: {
-                                            Image(systemName: "trash")
-                                                .foregroundColor(.red)
-                                        }
-                                        .disabled(deletingIDs.contains(entry.id))
-                                    }
-                                }
-                                .padding()
-                                .background(.thinMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                .transition(.move(edge: .trailing))
-                            }
-                        }
-                        Button {
-                            withAnimation {
-                                let newEntry = StockEntry(buyPrice: "", shares: "")
-                                entries.append(newEntry)
-                                focusedField = newEntry.id
-                            }
-                        } label: {
-                            HStack {
-                                Image(systemName: "plus.circle.fill")
-                                    .font(.system(size: 28))
-                                Text("Add Entry")
-                                    .font(.headline)
-                            }
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(.ultraThinMaterial)
-                            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 16, style: .continuous)
-                                    .strokeBorder(style: StrokeStyle(lineWidth: 1, dash: [6]))
-                                    .foregroundColor(.accentColor.opacity(0.3))
-                            )
-                        }
-                        .buttonStyle(.plain)
-                    }
-                }
-                VStack(spacing: 6) {
-                    HStack {
-                        Text("Selling Price")
-                        Spacer()
-                        HStack(spacing: 4) {
-                            Text(selectedCurrency.symbol)
-                                .foregroundColor(.secondary)
-                            TextField("0.00", text: $sellingPrice)
+                        HStack(spacing: 12) {
+                            TextField("Shares", text: $shares)
                                 .keyboardType(.decimalPad)
-                                .multilineTextAlignment(.trailing)
-                                .frame(width: 110)
-                                .textFieldStyle(.roundedBorder)
                         }
-                    }
-                }
-                .padding(8)
-                .background(.thinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                VStack(spacing: 6) {
-                    HStack {
-                        Text("Commission Fee")
-                        Spacer()
-                        HStack(spacing: 4) {
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 16)
+                        .background(Color.clear)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .stroke(Color.secondary.opacity(0.35), lineWidth: 1.5)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        HStack(spacing: 12) {
                             Text(selectedCurrency.symbol)
-                                .foregroundColor(.secondary)
-                            TextField("0.00", text: $commissionFee)
+                                .foregroundStyle(.secondary)
+                            TextField("Buy Price", text: $buyPrice)
                                 .keyboardType(.decimalPad)
-                                .multilineTextAlignment(.trailing)
-                                .frame(width: 90)
-                                .textFieldStyle(.roundedBorder)
                         }
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 16)
+                        .background(Color.clear)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .stroke(Color.secondary.opacity(0.35), lineWidth: 1.5)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        HStack(spacing: 12) {
+                            Text(selectedCurrency.symbol)
+                                .foregroundStyle(.secondary)
+                            TextField("Sell Price", text: $sellingPrice)
+                                .keyboardType(.decimalPad)
+                        }
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 16)
+                        .background(Color.clear)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .stroke(Color.secondary.opacity(0.35), lineWidth: 1.5)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+                        HStack(spacing: 12) {
+                            Text(selectedCurrency.symbol)
+                                .foregroundStyle(.secondary)
+                            TextField("Exit Fee", text: $commissionFee)
+                                .keyboardType(.decimalPad)
+                        }
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 16)
+                        .background(Color.clear)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                                .stroke(Color.secondary.opacity(0.35), lineWidth: 1.5)
+                        )
+                        .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                     }
+                    .scrollDismissesKeyboard(.interactively)
+                    .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 40 : 30, weight: .black, design: .rounded))
+
                 }
-                .padding(8)
-                .background(.thinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                VStack(spacing: 6) {
-                    Text("Total Profit")
-                        .font(.headline)
-                    Text("\(selectedCurrency.symbol)\(totalProfit, specifier: "%.2f")")
-                        .font(.system(size: 36, weight: .bold, design: .rounded))
-                        .foregroundStyle(totalProfit >= 0 ? .green : .red)
-                        .animation(.easeInOut, value: totalProfit)
-                }
-                .frame(maxWidth: .infinity)
-                .padding(8)
-                .background(.ultraThinMaterial)
-                .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                Spacer()
+                .padding(.horizontal, 6)
+                .padding(.top, 6)
+                .padding(.bottom, 12)
             }
-            .padding(6)
+            .contentShape(Rectangle())
+            .onTapGesture {
+                endTextEditing()
+            }
             .navigationBarTitleDisplayMode(.inline)
             .onAppear {
                 selectedCurrencyState = selectedCurrency
-                Analytics.logEvent("test_event", parameters: [
-                    "screen": "ContentView"
-                ])
             }
-            .onChange(of: selectedCurrencyState) { newValue in
+            .onChange(of: selectedCurrencyState) { _, newValue in
                 selectedCurrencyRaw = newValue.rawValue
             }
-            .onChange(of: selectedCurrencyRaw) { newValue in
+            .onChange(of: selectedCurrencyRaw) { _, newValue in
                 if let currency = Currency(rawValue: newValue) {
                     selectedCurrencyState = currency
                 }
@@ -224,9 +167,9 @@ struct CalculatorView: View {
                         }
                     }
                     .pickerStyle(.menu)
-                    .font(.system(size: UIDevice.current.userInterfaceIdiom == .pad ? 60 : 60))
+                    .font(.title)
                     .labelsHidden()
-                    .onChange(of: selectedCurrencyState) { newValue in
+                    .onChange(of: selectedCurrencyState) { _, newValue in
                         selectedCurrencyRaw = newValue.rawValue
                     }
                 }
@@ -234,8 +177,34 @@ struct CalculatorView: View {
             .navigationTitle("Stock Profit Calculator")
             .navigationBarTitleDisplayMode(.inline)
             .onAppear{
-                store.loadStoredPurchases()
+                sessionStart = Date()
             }
+            .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect()) { _ in
+                if !hasPromptedForReview && Date().timeIntervalSince(sessionStart) > 30 {
+                    maybeRequestReview()
+                }
+                
+                // Show interstitial ad after one minute
+                if !hasShownInterstitialThisSession && Date().timeIntervalSince(sessionStart) > 15 {
+                    if !store.completedPurchases.contains("MAIFER") && interstitialAdManager.isAdReady {
+                        let rootVC = UIApplication.shared.getRootViewController()
+                        interstitialAdManager.showInterstitial(from: rootVC)
+                        hasShownInterstitialThisSession = true
+                    }
+                }
+            }
+        }
+    }
+    
+    func maybeRequestReview() {
+        let lastPromptDate = UserDefaults.standard.object(forKey: "LastReviewPromptDate") as? Date
+        let now = Date()
+        let minInterval: TimeInterval = 60 * 60 * 24 * 30 // 30 days
+
+        if lastPromptDate == nil || now.timeIntervalSince(lastPromptDate!) > minInterval {
+            requestReview()
+            UserDefaults.standard.set(now, forKey: "LastReviewPromptDate")
+            hasPromptedForReview = true
         }
     }
 }
@@ -265,5 +234,14 @@ enum Currency: String, CaseIterable, Identifiable {
         case .inr: return "Indian Rupee (₹)"
         case .krw: return "South Korean Won (₩)"
         }
+    }
+}
+
+extension View {
+    func endTextEditing() {
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder),
+                                        to: nil,
+                                        from: nil,
+                                        for: nil)
     }
 }
