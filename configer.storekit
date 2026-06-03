@@ -1,0 +1,242 @@
+{
+  "appPolicies" : {
+    "eula" : "",
+    "policies" : [
+      {
+        "locale" : "en_US",
+        "policyText" : "",
+        "policyURL" : ""
+      }
+    ]
+  },
+  "identifier" : "6EB85BE9",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "6746397183",
+      "localizations" : [
+        {
+          "description" : "¡Elimina los anuncios para siempre!",
+          "displayName" : "Eliminar anuncios",
+          "locale" : "es_ES"
+        },
+        {
+          "description" : "Odstráňte reklamy navždy!",
+          "displayName" : "Odstrániť reklamy",
+          "locale" : "sk"
+        },
+        {
+          "description" : "Removes our ads forever!",
+          "displayName" : "Remove Ads",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "Reklamları sonsuza kadar kaldırın!",
+          "displayName" : "Reklamları Kaldır",
+          "locale" : "tr"
+        },
+        {
+          "description" : "Уберите рекламу навсегда!",
+          "displayName" : "Удалить рекламу",
+          "locale" : "ru"
+        },
+        {
+          "description" : "Hapus iklan selamanya!",
+          "displayName" : "Hapus Iklan",
+          "locale" : "id"
+        },
+        {
+          "description" : "永久去除广告！",
+          "displayName" : "删除广告",
+          "locale" : "zh_Hans"
+        },
+        {
+          "description" : "Xóa quảng cáo mãi mãi!",
+          "displayName" : "Xóa quảng cáo",
+          "locale" : "vi"
+        },
+        {
+          "description" : "広告を永久に削除しましょう!",
+          "displayName" : "広告を削除する",
+          "locale" : "ja"
+        },
+        {
+          "description" : "Entfernen Sie Werbung für immer!",
+          "displayName" : "Werbung entfernen",
+          "locale" : "de"
+        },
+        {
+          "description" : "永久去除廣告！",
+          "displayName" : "刪除廣告",
+          "locale" : "zh_Hant"
+        },
+        {
+          "description" : "Καταργήστε τις διαφημίσεις για πάντα!",
+          "displayName" : "Κατάργηση διαφημίσεων",
+          "locale" : "el"
+        },
+        {
+          "description" : "הסר מודעות לתמיד!",
+          "displayName" : "הסר מודעות",
+          "locale" : "he"
+        },
+        {
+          "description" : "Usuń reklamy na zawsze!",
+          "displayName" : "Usuń reklamy",
+          "locale" : "pl"
+        },
+        {
+          "description" : "Supprimez les publicités pour toujours !",
+          "displayName" : "Supprimer les publicités",
+          "locale" : "fr"
+        },
+        {
+          "description" : "Odstraňte reklamy navždy!",
+          "displayName" : "Odebrat reklamy",
+          "locale" : "cs"
+        },
+        {
+          "description" : "광고를 영원히 제거하세요!",
+          "displayName" : "광고 제거",
+          "locale" : "ko"
+        },
+        {
+          "description" : "Poista mainokset ikuisesti!",
+          "displayName" : "Poista mainokset",
+          "locale" : "fi"
+        },
+        {
+          "description" : "Távolítsa el a hirdetéseket örökre!",
+          "displayName" : "Távolítsa el a hirdetéseket",
+          "locale" : "hu"
+        },
+        {
+          "description" : "Fjern annoncer for altid!",
+          "displayName" : "Fjern annoncer",
+          "locale" : "da"
+        },
+        {
+          "description" : "Remova anúncios para sempre!",
+          "displayName" : "Remover anúncios",
+          "locale" : "pt_BR"
+        },
+        {
+          "description" : "¡Elimina los anuncios para siempre!",
+          "displayName" : "Eliminar anuncios",
+          "locale" : "es_MX"
+        },
+        {
+          "description" : "Eliminați reclamele pentru totdeauna!",
+          "displayName" : "Eliminați reclamele",
+          "locale" : "ro"
+        },
+        {
+          "description" : "Remova anúncios para sempre!",
+          "displayName" : "Remover anúncios",
+          "locale" : "pt_PT"
+        },
+        {
+          "description" : "Видаліть рекламу назавжди!",
+          "displayName" : "Видалити рекламу",
+          "locale" : "uk"
+        },
+        {
+          "description" : "Elimina els anuncis per sempre!",
+          "displayName" : "Elimina els anuncis",
+          "locale" : "ca"
+        },
+        {
+          "description" : "Alih keluar iklan selama-lamanya!",
+          "displayName" : "Alih Keluar Iklan",
+          "locale" : "ms"
+        },
+        {
+          "description" : "Remove ads forever!",
+          "displayName" : "Remove Ads",
+          "locale" : "en_AU"
+        },
+        {
+          "description" : "Remove ads forever!",
+          "displayName" : "Remove Ads",
+          "locale" : "en_CA"
+        },
+        {
+          "description" : "Remove ads forever!",
+          "displayName" : "Remove Ads",
+          "locale" : "en_GB"
+        },
+        {
+          "description" : "Rimuovi gli annunci per sempre!",
+          "displayName" : "Rimuovi annunci",
+          "locale" : "it"
+        },
+        {
+          "description" : "Ta bort annonser för alltid!",
+          "displayName" : "Ta bort annonser",
+          "locale" : "sv"
+        },
+        {
+          "description" : "Verwijder advertenties voor altijd!",
+          "displayName" : "Verwijder advertenties",
+          "locale" : "nl"
+        },
+        {
+          "description" : "Uklonite oglase zauvijek!",
+          "displayName" : "Ukloni oglase",
+          "locale" : "hr"
+        },
+        {
+          "description" : "Supprimez les publicités pour toujours !",
+          "displayName" : "Supprimer les publicités",
+          "locale" : "fr_CA"
+        },
+        {
+          "description" : "विज्ञापन हमेशा के लिए हटाएँ!",
+          "displayName" : "विज्ञापन हटाएँ",
+          "locale" : "hi"
+        },
+        {
+          "description" : "إزالة الإعلانات إلى الأبد!",
+          "displayName" : "إزالة الإعلانات",
+          "locale" : "ar"
+        },
+        {
+          "description" : "ลบโฆษณาตลอดไป!",
+          "displayName" : "ลบโฆษณา",
+          "locale" : "th"
+        }
+      ],
+      "productID" : "MAIFER",
+      "referenceName" : "StocksProfitsRemoveAds",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6479931561",
+    "_askToBuyEnabled" : false,
+    "_billingGracePeriodEnabled" : false,
+    "_billingIssuesEnabled" : false,
+    "_developerTeamID" : "5C778DVBP3",
+    "_disableDialogs" : false,
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 802142261.99053895,
+    "_locale" : "en_US",
+    "_renewalBillingIssuesEnabled" : false,
+    "_storefront" : "USA",
+    "_storeKitErrors" : [
+
+    ],
+    "_timeRate" : 0
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 5,
+    "minor" : 0
+  }
+}

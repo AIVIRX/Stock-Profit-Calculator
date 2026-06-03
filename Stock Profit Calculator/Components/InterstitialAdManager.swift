@@ -8,6 +8,7 @@
 
 import GoogleMobileAds
 import SwiftUI
+@_spi(Experimental) import RevenueCatAdMob
 
 class InterstitialAdManager: NSObject, ObservableObject, FullScreenContentDelegate {
     private var interstitial: InterstitialAd?
@@ -17,19 +18,24 @@ class InterstitialAdManager: NSObject, ObservableObject, FullScreenContentDelega
 
     func loadInterstitial() {
         guard adsEnabled else { return }
-        InterstitialAd.load(with: adUnitID, request: Request()) { [weak self] ad, error in
+        InterstitialAd.loadAndTrack(
+            withAdUnitID: adUnitID,
+            request: Request(),
+            placement: AdPlacement.interstitialLoad,
+            fullScreenContentDelegate: self
+        ) { [weak self] ad, error in
             if let error = error {
                 print("Failed to load interstitial ad: \(error.localizedDescription)")
                 self?.isAdReady = false
                 return
             }
             self?.interstitial = ad
-            self?.interstitial?.fullScreenContentDelegate = self
             self?.isAdReady = true
         }
     }
 
-    func showInterstitial(from rootViewController: UIViewController, completion: (() -> Void)? = nil) {
+    @MainActor
+    func showInterstitial(from rootViewController: UIViewController, placement: String? = nil, completion: (() -> Void)? = nil) {
         guard adsEnabled else {
             completion?()
             return
@@ -39,7 +45,11 @@ class InterstitialAdManager: NSObject, ObservableObject, FullScreenContentDelega
             completion?()
             return
         }
-        interstitial.present(from: rootViewController)
+        if let placement {
+            interstitial.present(from: rootViewController, placement: placement)
+        } else {
+            interstitial.present(from: rootViewController)
+        }
         self.isAdReady = false
         completion?()
     }

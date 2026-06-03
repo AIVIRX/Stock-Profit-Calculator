@@ -1,5 +1,5 @@
 {
-  "originHash" : "323014f1119f1e1609fe2d84940b05fba98bb2e47c3f6150d54da55d43380884",
+  "originHash" : "2bb81fe25a931cc54c3bec6712d3abd8315e1cebe35ff4e0a83af903fa91db5a",
   "pins" : [
     {
       "identity" : "abseil-cpp-binary",
@@ -110,12 +110,21 @@
       }
     },
     {
+      "identity" : "purchases-ios-admob",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/RevenueCat/purchases-ios-admob",
+      "state" : {
+        "revision" : "932bc6c9f5680691ee9e11ef3c61759c4851b6c4",
+        "version" : "5.75.0"
+      }
+    },
+    {
       "identity" : "purchases-ios-spm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/RevenueCat/purchases-ios-spm",
       "state" : {
-        "revision" : "66f81c19e29170cecc1f155c62cd586cf53b8400",
-        "version" : "5.67.1"
+        "revision" : "3bbaa4a88d74c863ee5bc4295b2fc628323eff0d",
+        "version" : "5.75.0"
       }
     },
     {

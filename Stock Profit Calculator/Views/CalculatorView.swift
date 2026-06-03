@@ -49,6 +49,10 @@ struct CalculatorView: View {
         return (totalCost) / totalShares
     }
 
+    private func formattedCurrency(_ value: Double) -> String {
+        "\(selectedCurrency.symbol)\(String(format: "%.2f", value))"
+    }
+
     private func parseDouble(_ input: String) -> Double {
         let formatter = NumberFormatter()
         formatter.locale = Locale.current
@@ -66,7 +70,7 @@ struct CalculatorView: View {
                     VStack(spacing: 6) {
                         Text("Total Profit")
                             .font(.headline)
-                        Text("\(selectedCurrency.symbol)\(totalProfit, specifier: "%.2f")")
+                        Text(formattedCurrency(totalProfit))
                             .font(.system(size: 40, weight: .bold, design: .rounded))
                             .foregroundStyle(totalProfit >= 0 ? .green : .red)
                             .lineLimit(2)
@@ -74,11 +78,19 @@ struct CalculatorView: View {
                             .fixedSize(horizontal: false, vertical: true)
                             .contentTransition(.numericText())
                             .animation(summaryAnimation, value: totalProfit)
+                        HStack(spacing: 4) {
+                            Text("Break-even")
+                                .foregroundStyle(.secondary)
+                            Text(formattedCurrency(breakEvenPrice))
+                                .fontWeight(.semibold)
+                        }
+                        .font(.subheadline)
                     }
                     .frame(maxWidth: .infinity)
                     .padding(8)
                     .background(.ultraThinMaterial)
                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+
                     VStack(spacing: 12) {
                         HStack(spacing: 12) {
                             TextField("Shares", text: $shares)
@@ -92,6 +104,7 @@ struct CalculatorView: View {
                                 .stroke(Color.secondary.opacity(0.35), lineWidth: 1.5)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+
                         HStack(spacing: 12) {
                             Text(selectedCurrency.symbol)
                                 .foregroundStyle(.secondary)
@@ -106,6 +119,7 @@ struct CalculatorView: View {
                                 .stroke(Color.secondary.opacity(0.35), lineWidth: 1.5)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+
                         HStack(spacing: 12) {
                             Text(selectedCurrency.symbol)
                                 .foregroundStyle(.secondary)
@@ -120,6 +134,7 @@ struct CalculatorView: View {
                                 .stroke(Color.secondary.opacity(0.35), lineWidth: 1.5)
                         )
                         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
+
                         HStack(spacing: 12) {
                             Text(selectedCurrency.symbol)
                                 .foregroundStyle(.secondary)
@@ -187,15 +202,15 @@ struct CalculatorView: View {
                 // Show interstitial ad after one minute
                 if !hasShownInterstitialThisSession && Date().timeIntervalSince(sessionStart) > 15 {
                     if !store.completedPurchases.contains("MAIFER") && interstitialAdManager.isAdReady {
-                        let rootVC = UIApplication.shared.getRootViewController()
-                        interstitialAdManager.showInterstitial(from: rootVC)
+                        let rootVC = UIApplication.shared.topMostViewController()
+                        interstitialAdManager.showInterstitial(from: rootVC, placement: AdPlacement.calculatorInterstitial)
                         hasShownInterstitialThisSession = true
                     }
                 }
             }
         }
     }
-    
+
     func maybeRequestReview() {
         let lastPromptDate = UserDefaults.standard.object(forKey: "LastReviewPromptDate") as? Date
         let now = Date()

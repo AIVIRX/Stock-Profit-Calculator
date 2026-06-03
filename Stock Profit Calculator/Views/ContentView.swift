@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import RevenueCatUI
 
 struct ContentView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject private var store: Store
     @State private var selectedTab: Tabs = .home
+    @State private var showLaunchPaywall = false
 
     enum Tabs: Hashable {
             case home
@@ -33,5 +35,24 @@ struct ContentView: View {
             }
         }
         .accentColor(colorScheme == .dark ? .white : .black)
+        .onAppear {
+            evaluateLaunchPaywall()
+        }
+        .onChange(of: store.hasDeterminedEntitlement) { _, _ in
+            evaluateLaunchPaywall()
+        }
+        .sheet(isPresented: $showLaunchPaywall) {
+            PaywallView()
+        }
+    }
+
+    private func evaluateLaunchPaywall() {
+        guard !store.hasShownLaunchPaywallThisSession else { return }
+        guard store.hasDeterminedEntitlement else { return }
+
+        store.hasShownLaunchPaywallThisSession = true
+        if !store.completedPurchases.contains("MAIFER") {
+            showLaunchPaywall = true
+        }
     }
 }

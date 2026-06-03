@@ -51,13 +51,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     private func configureRevenueCat() {
-        Purchases.logLevel = .debug
+        Purchases.logLevel = .info
         Purchases.configure(withAPIKey: RevenueCatConfig.publicSDKKey)
     }
 }
 
 final class Store: NSObject, ObservableObject, PurchasesDelegate {
     @Published var completedPurchases: [String] = []
+    @Published var hasDeterminedEntitlement = false
+    @Published var hasShownLaunchPaywallThisSession = false
 
     private let removeAdsProductID = "MAIFER"
     private let removeAdsEntitlementID = "Premium"
@@ -75,17 +77,20 @@ final class Store: NSObject, ObservableObject, PurchasesDelegate {
         Task {
             await syncLegacyPurchases()
             await refreshCustomerInfo()
+            await MainActor.run {
+                self.hasDeterminedEntitlement = true
+            }
         }
     }
 
-    func restorePurchases() {
-        Task {
-            do {
-                let customerInfo = try await Purchases.shared.restorePurchases()
-                apply(customerInfo: customerInfo)
-            } catch {
-                print("Restore failed: \(error)")
+    func restorePurchases() async {
+        do {
+            let customerInfo = try await Purchases.shared.restorePurchases()
+            await MainActor.run {
+                self.apply(customerInfo: customerInfo)
             }
+        } catch {
+            print("Restore failed: \(error)")
         }
     }
 
@@ -134,12 +139,15 @@ struct Stock_Profit_CalculatorApp: App {
     private var hasNoAds: Bool {
         store.completedPurchases.contains("MAIFER")
     }
+
+    private var canShowAds: Bool {
+        store.hasDeterminedEntitlement && !hasNoAds
+    }
     
     var body: some Scene {
         WindowGroup {
             VStack{
-                if hasNoAds {
-                } else {
+                if canShowAds {
                     if UIDevice.current.userInterfaceIdiom == .phone {
                         AdView(adUnitID: AdUnitID.finalAds)
                             .frame(width: 320, height: 50)
@@ -159,10 +167,13 @@ struct Stock_Profit_CalculatorApp: App {
             }
             .onAppear {
                 store.start()
-                interstitialAdManager.setAdsEnabled(!hasNoAds)
+                interstitialAdManager.setAdsEnabled(canShowAds)
             }
             .onChange(of: store.completedPurchases) { _, _ in
-                interstitialAdManager.setAdsEnabled(!hasNoAds)
+                interstitialAdManager.setAdsEnabled(canShowAds)
+            }
+            .onChange(of: store.hasDeterminedEntitlement) { _, _ in
+                interstitialAdManager.setAdsEnabled(canShowAds)
             }
         }
     }

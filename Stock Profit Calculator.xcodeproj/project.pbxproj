@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EC12E7492DE7E198003E02E6 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EC12E7482DE7E198003E02E6 /* Localizable.xcstrings */; };
 		EC12E74B2DE7E358003E02E6 /* Stock-Profit-Calculator-InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = EC12E74A2DE7E358003E02E6 /* Stock-Profit-Calculator-InfoPlist.xcstrings */; };
+		EC24765A2FCFAEFD00BC089B /* RevenueCatAdMob in Frameworks */ = {isa = PBXBuildFile; productRef = EC2476592FCFAEFD00BC089B /* RevenueCatAdMob */; };
 		EC2D7C5E2DE5587100BEF651 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = EC2D7C5D2DE5587100BEF651 /* GoogleMobileAds */; };
 		EC2D7C812DE57E9D00BEF651 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2D7C752DE57E9D00BEF651 /* Constants.swift */; };
 		EC2D7C822DE57E9D00BEF651 /* BannerAds.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2D7C772DE57E9D00BEF651 /* BannerAds.swift */; };
@@ -16,7 +17,6 @@
 		EC2D7C842DE57E9D00BEF651 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2D7C7A2DE57E9D00BEF651 /* SettingsView.swift */; };
 		EC2D7C852DE57E9D00BEF651 /* Stock_Profit_CalculatorApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC2D7C7B2DE57E9D00BEF651 /* Stock_Profit_CalculatorApp.swift */; };
 		EC2D7C862DE57E9D00BEF651 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC2D7C6D2DE57E9D00BEF651 /* Assets.xcassets */; };
-		EC2D7C872DE57E9D00BEF651 /* StoreConfig.storekit in Resources */ = {isa = PBXBuildFile; fileRef = EC2D7C6E2DE57E9D00BEF651 /* StoreConfig.storekit */; };
 		EC3CFC202F86E7F5005AA293 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = EC3CFC1F2F86E7F5005AA293 /* RevenueCat */; };
 		EC3CFC222F86E7F5005AA293 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = EC3CFC212F86E7F5005AA293 /* RevenueCatUI */; };
 		EC77B6962E3A9A4B001C4229 /* InterstitialAdManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC77B6952E3A9A4B001C4229 /* InterstitialAdManager.swift */; };
@@ -25,7 +25,6 @@
 		EC8ED2172DE43C0100CDB667 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8ED2162DE43C0100CDB667 /* AppTrackingTransparency.framework */; };
 		EC8ED2192DE43C6100CDB667 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EC8ED2182DE43C6100CDB667 /* AdSupport.framework */; };
 		ECAF1E8F2DEFC62A00D5AA6D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ECAF1E8E2DEFC62A00D5AA6D /* GoogleService-Info.plist */; };
-		ECAF1E912DEFCCD500D5AA6D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = ECAF1E902DEFCCD500D5AA6D /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		ECAFEEFF2DE6244E0036E4A1 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAFEEFE2DE6244E0036E4A1 /* ContentView.swift */; };
 		ECAFEF012DE62B310036E4A1 /* StocksTriviaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECAFEF002DE62B310036E4A1 /* StocksTriviaView.swift */; };
 /* End PBXBuildFile section */
@@ -33,8 +32,8 @@
 /* Begin PBXFileReference section */
 		EC12E7482DE7E198003E02E6 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		EC12E74A2DE7E358003E02E6 /* Stock-Profit-Calculator-InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = "Stock-Profit-Calculator-InfoPlist.xcstrings"; path = "Stock Profit Calculator/Resources/Stock-Profit-Calculator-InfoPlist.xcstrings"; sourceTree = SOURCE_ROOT; };
+		EC24765B2FCFB83400BC089B /* configer.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = configer.storekit; sourceTree = "<group>"; };
 		EC2D7C6D2DE57E9D00BEF651 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		EC2D7C6E2DE57E9D00BEF651 /* StoreConfig.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = StoreConfig.storekit; sourceTree = "<group>"; };
 		EC2D7C752DE57E9D00BEF651 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EC2D7C772DE57E9D00BEF651 /* BannerAds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerAds.swift; sourceTree = "<group>"; };
 		EC2D7C782DE57E9D00BEF651 /* CalculatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorView.swift; sourceTree = "<group>"; };
@@ -59,8 +58,8 @@
 				EC8ED2192DE43C6100CDB667 /* AdSupport.framework in Frameworks */,
 				EC3CFC202F86E7F5005AA293 /* RevenueCat in Frameworks */,
 				EC2D7C5E2DE5587100BEF651 /* GoogleMobileAds in Frameworks */,
+				EC24765A2FCFAEFD00BC089B /* RevenueCatAdMob in Frameworks */,
 				EC3CFC222F86E7F5005AA293 /* RevenueCatUI in Frameworks */,
-				ECAF1E912DEFCCD500D5AA6D /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				EC8ED2122DE439B100CDB667 /* FirebaseAnalytics in Frameworks */,
 				EC8ED2052DE436A400CDB667 /* StoreKit.framework in Frameworks */,
 			);
@@ -73,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				EC2D7C6D2DE57E9D00BEF651 /* Assets.xcassets */,
-				EC2D7C6E2DE57E9D00BEF651 /* StoreConfig.storekit */,
 				EC12E7482DE7E198003E02E6 /* Localizable.xcstrings */,
 				EC12E74A2DE7E358003E02E6 /* Stock-Profit-Calculator-InfoPlist.xcstrings */,
 			);
@@ -95,6 +93,7 @@
 		EC8ED1E82DE2AD3100CDB667 = {
 			isa = PBXGroup;
 			children = (
+				EC24765B2FCFB83400BC089B /* configer.storekit */,
 				EC2D7C7C2DE57E9D00BEF651 /* Stock Profit Calculator */,
 				EC8ED2032DE436A300CDB667 /* Frameworks */,
 				EC8ED1F22DE2AD3100CDB667 /* Products */,
@@ -159,9 +158,9 @@
 			packageProductDependencies = (
 				EC8ED2112DE439B100CDB667 /* FirebaseAnalytics */,
 				EC2D7C5D2DE5587100BEF651 /* GoogleMobileAds */,
-				ECAF1E902DEFCCD500D5AA6D /* FirebaseAnalyticsWithoutAdIdSupport */,
 				EC3CFC1F2F86E7F5005AA293 /* RevenueCat */,
 				EC3CFC212F86E7F5005AA293 /* RevenueCatUI */,
+				EC2476592FCFAEFD00BC089B /* RevenueCatAdMob */,
 			);
 			productName = "Stock Profit Calculator";
 			productReference = EC8ED1F12DE2AD3100CDB667 /* Stock Profit Calculator.app */;
@@ -239,6 +238,7 @@
 				EC8ED2102DE439B100CDB667 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				EC2D7C5C2DE5587100BEF651 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 				EC3CFC1E2F86E7F5005AA293 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+				EC2476582FCFAEFD00BC089B /* XCRemoteSwiftPackageReference "purchases-ios-admob" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EC8ED1F22DE2AD3100CDB667 /* Products */;
@@ -258,7 +258,6 @@
 				EC2D7C862DE57E9D00BEF651 /* Assets.xcassets in Resources */,
 				EC12E74B2DE7E358003E02E6 /* Stock-Profit-Calculator-InfoPlist.xcstrings in Resources */,
 				ECAF1E8F2DEFC62A00D5AA6D /* GoogleService-Info.plist in Resources */,
-				EC2D7C872DE57E9D00BEF651 /* StoreConfig.storekit in Resources */,
 				EC12E7492DE7E198003E02E6 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,14 +416,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 78;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = 5C778DVBP3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Stock-Profit-Calculator-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Stock Profit";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to show personlized ads ";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to show personalized ads ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -435,7 +434,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5;
+				MARKETING_VERSION = 6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maicol.stockprofit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -454,14 +453,14 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 78;
+				CURRENT_PROJECT_VERSION = 90;
 				DEVELOPMENT_TEAM = 5C778DVBP3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Stock-Profit-Calculator-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Stock Profit";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to show personlized ads ";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "This identifier will be used to show personalized ads ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -472,7 +471,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5;
+				MARKETING_VERSION = 6;
 				PRODUCT_BUNDLE_IDENTIFIER = com.maicol.stockprofit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -509,6 +508,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		EC2476582FCFAEFD00BC089B /* XCRemoteSwiftPackageReference "purchases-ios-admob" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-admob";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.75.0;
+			};
+		};
 		EC2D7C5C2DE5587100BEF651 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
@@ -536,6 +543,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		EC2476592FCFAEFD00BC089B /* RevenueCatAdMob */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EC2476582FCFAEFD00BC089B /* XCRemoteSwiftPackageReference "purchases-ios-admob" */;
+			productName = RevenueCatAdMob;
+		};
 		EC2D7C5D2DE5587100BEF651 /* GoogleMobileAds */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = EC2D7C5C2DE5587100BEF651 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
@@ -555,11 +567,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = EC8ED2102DE439B100CDB667 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseAnalytics;
-		};
-		ECAF1E902DEFCCD500D5AA6D /* FirebaseAnalyticsWithoutAdIdSupport */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = EC8ED2102DE439B100CDB667 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
-			productName = FirebaseAnalyticsWithoutAdIdSupport;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

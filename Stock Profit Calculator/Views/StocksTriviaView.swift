@@ -1329,9 +1329,6 @@ class TriviaViewModel: ObservableObject {
     @Published var showSummary: Bool = false
     @AppStorage("triviaHighScores") private var highScoresData: Data = Data()
     @Published var highScores: [String: Int] = [:] // [chapterTitle: highScore]
-    @EnvironmentObject private var store: Store
-    @EnvironmentObject private var interstitialAdManager: InterstitialAdManager
-    @State private var hasShownInterstitialThisCompletion = false
     
     init() {
         loadHighScores()
@@ -1355,7 +1352,7 @@ class TriviaViewModel: ObservableObject {
         }
     }
     
-    func nextQuestion(interstitialAdManager: InterstitialAdManager? = nil, store: Store? = nil) {
+    func nextQuestion() {
         guard let chapter = selectedChapter else { return }
         if currentQuestionIndex + 1 < chapter.questions.count {
             currentQuestionIndex += 1
@@ -1623,7 +1620,7 @@ struct TriviaGameView: View {
                     .padding(.bottom, 16)
                     
                     Button(action: {
-                        viewModel.nextQuestion(interstitialAdManager: interstitialAdManager, store: store)
+                        viewModel.nextQuestion()
                         localSelectedIndex = nil
                         hasSubmitted = false
                         let impactHeavy = UIImpactFeedbackGenerator(style: .heavy)
@@ -1747,10 +1744,10 @@ struct TriviaSummaryView: View {
         .navigationTitle(chapter.title)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            if !store.completedPurchases.contains("MAIFER") {
-                if interstitialAdManager.isAdReady {
-                    let rootVC = UIApplication.shared.getRootViewController()
-                    interstitialAdManager.showInterstitial(from: rootVC)
+                if !store.completedPurchases.contains("MAIFER") {
+                    if interstitialAdManager.isAdReady {
+                    let rootVC = UIApplication.shared.topMostViewController()
+                    interstitialAdManager.showInterstitial(from: rootVC, placement: AdPlacement.triviaCompleteInterstitial)
                 }
             }
         }

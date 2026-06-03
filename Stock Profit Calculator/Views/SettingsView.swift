@@ -7,63 +7,24 @@
 
 import SwiftUI
 import StoreKit
-import MessageUI
 import RevenueCatUI
-
-struct MailView: UIViewControllerRepresentable {
-    @Environment(\.presentationMode) var presentationMode
-    @Binding var result: Result<MFMailComposeResult, Error>?
-
-    class Coordinator: NSObject, MFMailComposeViewControllerDelegate {
-        @Binding var presentationMode: PresentationMode
-        @Binding var result: Result<MFMailComposeResult, Error>?
-
-        init(presentationMode: Binding<PresentationMode>, result: Binding<Result<MFMailComposeResult, Error>?>) {
-            _presentationMode = presentationMode
-            _result = result
-        }
-
-        func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
-            defer {
-                $presentationMode.wrappedValue.dismiss()
-            }
-            guard error == nil else {
-                self.result = .failure(error!)
-                return
-            }
-            self.result = .success(result)
-        }
-    }
-
-    func makeCoordinator() -> Coordinator {
-        return Coordinator(presentationMode: presentationMode, result: $result)
-    }
-
-    func makeUIViewController(context: UIViewControllerRepresentableContext<MailView>) -> MFMailComposeViewController {
-        let vc = MFMailComposeViewController()
-        vc.mailComposeDelegate = context.coordinator
-        vc.setToRecipients(["support@aivirx.com"])
-        vc.setSubject("Stocks Profit Calculator")
-        return vc
-    }
-
-    func updateUIViewController(_ uiViewController: MFMailComposeViewController, context: UIViewControllerRepresentableContext<MailView>) {}
-}
 
 struct SettingsView: View {
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.requestReview) var requestReview
     @EnvironmentObject private var store: Store
-    @State private var errorMessage: String = ""
-    @State private var showErrorAlert: Bool = false
-    @State private var result: Result<MFMailComposeResult, Error>? = nil
-    @State private var isShowingMailView = false
     @State private var isShowingPaywall = false
-    @Environment(\.dismiss) var dismiss
+    @State private var isRestoringPurchases = false
 
     private var hasNoAds: Bool {
         store.completedPurchases.contains("MAIFER")
     }
+
+    private var cryptoAppURL: URL? { URL(string: "https://apps.apple.com/us/app/crypto-profit-loss-calculator/id1638849680") }
+    private var miniHabitsURL: URL? { URL(string: "https://apps.apple.com/us/app/minihabits-habit-tracker/id6749192623") }
+    private var privacyPolicyURL: URL? { URL(string: "https://www.aivirx.com/stock-profit-calculator/privacy-policy") }
+    private var termsURL: URL? { URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") }
+    private var supportEmailURL: URL? { URL(string: "mailto:support@aivirx.com?subject=Stocks%20Profit%20Calculator") }
 
     var body: some View {
         NavigationStack {
@@ -73,8 +34,8 @@ struct SettingsView: View {
                 } label: {
                         VStack(alignment: .leading) {
                             HStack{
-                                Image(systemName: "crown.fill")
-                                    .foregroundColor(.orange)
+                                Image(systemName: hasNoAds ? "checkmark.seal.fill" : "xmark.seal.fill")
+                                    .foregroundColor(hasNoAds ? .green : .red)
                                 Text("Shop")
                                     .font(.headline)
                                     .foregroundColor(.white)
@@ -85,9 +46,9 @@ struct SettingsView: View {
                         }
                         .padding()
                         .frame(maxWidth: .infinity, alignment: .leading)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
-                .contentShape(Rectangle())
                 .background(RoundedRectangle(cornerRadius: 12).fill(Color.indigo.gradient))
                 .padding(.horizontal)
                 .padding(.top)
@@ -107,68 +68,81 @@ struct SettingsView: View {
                                 Text("Rate Us")
                             }
                         }
+                        Button {
+                            Task {
+                                await MainActor.run {
+                                    isRestoringPurchases = true
+                                }
+                                await store.restorePurchases()
+                                await MainActor.run {
+                                    isRestoringPurchases = false
+                                }
+                            }
+                        } label: {
+                            HStack {
+                                Image(systemName: "arrow.clockwise.circle.fill")
+                                    .font(.system(size: 20))
+                                    .frame(width: 30, height: 30)
+                                    .foregroundStyle(.white)
+                                    .background(Color.blue)
+                                    .clipShape(RoundedRectangle(cornerRadius: 5))
+                                Text(isRestoringPurchases ? "Restoring..." : "Restore Purchases")
+                            }
+                        }
+                        .disabled(isRestoringPurchases)
                     }
                     
                     Section(header: Text("Our Apps")) {
-                        Link(destination: URL(string: "https://apps.apple.com/us/app/crypto-profit-loss-calculator/id1638849680")!) {
-                            HStack {
-                                Image("CryptoProfitCalc")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .cornerRadius(5)
-                                Text("Crypto Profit Loss Calculator")
+                        if let cryptoAppURL {
+                            Link(destination: cryptoAppURL) {
+                                HStack {
+                                    Image("CryptoProfitCalc")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .cornerRadius(5)
+                                    Text("Crypto Profit Loss Calculator")
+                                }
                             }
                         }
                         
-                        Link(destination: URL(string: "https://apps.apple.com/us/app/minihabits-habit-tracker/id6749192623")!) {
-                            HStack {
-                                Image("minihabits")
-                                    .resizable()
-                                    .frame(width: 30, height: 30)
-                                    .cornerRadius(5)
-                                
-                                Text("MiniHabits - Habit Tracker")
+                        if let miniHabitsURL {
+                            Link(destination: miniHabitsURL) {
+                                HStack {
+                                    Image("minihabits")
+                                        .resizable()
+                                        .frame(width: 30, height: 30)
+                                        .cornerRadius(5)
+                                    Text("MiniHabits - Habit Tracker")
+                                }
                             }
                         }
                     }
                     
                     Section("Privacy & Support") {
-                        Link(destination: URL(string: "https://www.aivirx.com/stock-profit-calculator/privacy-policy")!) {
-                            Text("Privacy Policy")
+                        if let privacyPolicyURL {
+                            Link(destination: privacyPolicyURL) {
+                                Text("Privacy Policy")
+                            }
                         }
-                        Link(destination: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/")!) {
-                            Text("Terms of Service")
+                        if let termsURL {
+                            Link(destination: termsURL) {
+                                Text("Terms of Service")
+                            }
                         }
-                        Button(action: {
-                            isShowingMailView.toggle()
-                        }) {
-                            Text("Contact Us")
+                        if let supportEmailURL {
+                            Link(destination: supportEmailURL) {
+                                Text("Contact Us")
+                            }
                         }
-                        .disabled(!MFMailComposeViewController.canSendMail())
                     }
                 }
                 .accentColor(colorScheme == .dark ? .white : .black)
                 .navigationBarTitle("Settings")
                 .navigationBarTitleDisplayMode(.inline)
-                .alert(isPresented: $showErrorAlert) {
-                    Alert(
-                        title: Text("Error"),
-                        message: Text(errorMessage),
-                        dismissButton: .default(Text("OK"))
-                    )
-                }
-                .sheet(isPresented: $isShowingMailView) {
-                    MailView(result: $result)
-                }
                 .sheet(isPresented: $isShowingPaywall) {
                     PaywallView()
                 }
             }
         }
-    }
-    
-    private func showError(_ message: String) {
-        errorMessage = message
-        showErrorAlert = true
     }
 }

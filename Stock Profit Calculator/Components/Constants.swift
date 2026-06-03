@@ -18,4 +18,11 @@ struct AdUnitID {
     static let finalAds = mainPageAds
 }
 
+struct AdPlacement {
+    static let homeBanner = "home_banner"
+    static let interstitialLoad = "interstitial_load"
+    static let calculatorInterstitial = "calculator_interstitial"
+    static let triviaCompleteInterstitial = "trivia_complete_interstitial"
+}
+
     

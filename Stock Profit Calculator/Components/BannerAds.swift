@@ -7,6 +7,7 @@
 
 import SwiftUI
 import GoogleMobileAds
+@_spi(Experimental) import RevenueCatAdMob
 
 struct AdView: UIViewRepresentable{
     var adUnitID: String
@@ -18,12 +19,15 @@ struct AdView: UIViewRepresentable{
         let banner = BannerView(adSize: AdSizeBanner)
         
         banner.adUnitID = adUnitID
-        banner.rootViewController = UIApplication.shared.getRootViewController()
-        banner.delegate = context.coordinator
+        banner.rootViewController = UIApplication.shared.topMostViewController()
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
             let request = Request()
             request.scene = windowScene
-            banner.load(request)
+            banner.loadAndTrack(
+                request: request,
+                placement: AdPlacement.homeBanner,
+                delegate: context.coordinator
+            )
         }
         return banner
     }
@@ -73,14 +77,18 @@ struct ConditionalAdView: View {
 }
 
 extension UIApplication{
-    func getRootViewController()->UIViewController{
-        guard let screen = self.connectedScenes.first as? UIWindowScene else{
+    func topMostViewController() -> UIViewController {
+        guard let screen = connectedScenes
+            .compactMap({ $0 as? UIWindowScene })
+            .first(where: { $0.activationState == .foregroundActive }),
+              let root = screen.windows.first(where: { $0.isKeyWindow })?.rootViewController else {
             return .init()
         }
-        guard let root = screen.windows.first?.rootViewController else{
-            return .init()
+
+        var topController = root
+        while let presented = topController.presentedViewController {
+            topController = presented
         }
-        
-        return root
+        return topController
     }
 }
