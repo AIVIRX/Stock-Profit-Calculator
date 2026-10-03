@@ -1,6 +1,8 @@
-# Stock Profit Calculator
+# Stock Profit Loss Calculator
 
 A native iOS app for quickly estimating the outcome of a stock trade. Enter the number of shares, purchase price, sell price, and exit fee to see the projected profit or loss and break-even price.
+
+[Download on the App Store](https://apps.apple.com/us/app/stock-profit-loss-calculator/id6479931561)
 
 ## Highlights
 
@@ -40,3 +42,6 @@ Stock Profit Calculator/
 
 This project is a portfolio example and is not financial advice. Results are estimates and do not account for every possible tax, fee, or market condition.
 
+## License
+
+This source code is proprietary. See [LICENSE](LICENSE) for usage restrictions.
