@@ -20,14 +20,6 @@ A native iOS app for quickly estimating the outcome of a stock trade. Enter the 
 - Google Mobile Ads SDK
 - Swift Package Manager
 
-## Getting started
-
-1. Clone the repository.
-2. Open [Stock Profit Calculator.xcodeproj](Stock%20Profit%20Calculator.xcodeproj) in Xcode.
-3. Choose an iOS simulator or device and run the `Stock Profit Calculator` scheme.
-
-Dependencies resolve through Swift Package Manager. The repository includes the Firebase configuration used by the app; use your own configuration when building a fork or production variant.
-
 ## Project structure
 
 ```
@@ -37,10 +29,6 @@ Stock Profit Calculator/
 ├── Views/            # Calculator, trivia, and settings screens
 └── Stock_Profit_CalculatorApp.swift
 ```
-
-## Notes
-
-This project is a portfolio example and is not financial advice. Results are estimates and do not account for every possible tax, fee, or market condition.
 
 ## License
 
